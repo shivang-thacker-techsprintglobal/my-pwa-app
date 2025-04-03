@@ -6,7 +6,6 @@ import {
   // FACEMESH_TESSELATION,
   FACEMESH_RIGHT_IRIS,
   FACEMESH_LEFT_IRIS,
-  FACEMESH_TESSELATION,
   // FACEMESH_FACE_OVAL,
 } from "@mediapipe/face_mesh";
 import { Camera } from "@mediapipe/camera_utils";
@@ -20,15 +19,11 @@ const WebcamImg = () => {
   const canvasRef = useRef(null);
   const [imgSrc, setImgSrc] = useState(null);
   const [PDValue, setPDValue] = useState("");
-  const [nosediatanceleft, setnosediatanceleft] = useState("");
-  const [nodedistanceright, setnodedistanceright] = useState("");
   const [PDResult, setPDResult] = useState("");
   const [nosediatanceleftResult, setnosediatanceleftResult] = useState("");
   const [nodedistancerightResult, setnodedistancerightResult] = useState("");
   const [averageValue, setAverageValue] = useState(0);
   const [numbersList, setNumbersList] = useState([]);
-  const NOSE_INDEX = 168;
-
   const deviceWidth =
     window.innerWidth ||
     document.documentElement.clientWidth ||
@@ -84,10 +79,6 @@ const WebcamImg = () => {
         canvasElement.width,
         canvasElement.height
       );
-      const { x, y } = results.multiFaceLandmarks[0][NOSE_INDEX];
-      const nosePoint = results.multiFaceLandmarks[0][NOSE_INDEX];
-      // Drawing the nose point on canvas
-      canvasCtx.fillRect(x * width - 2, y * height - 2, 4, 4);
 
       // Loading Face Mesh landmarks for iris and getting coordinates for pupils
       if (results.multiFaceLandmarks && results.multiFaceLandmarks[0]) {
@@ -136,31 +127,8 @@ const WebcamImg = () => {
         let pupilWidth = Math.min(pupils.left.width, pupils.right.width);
         let pd = (irisWidthInMM / pupilWidth) * distance;
 
-        // Calculate distance between nose and left pupil
-        const leftPupilDistance = getDistance(
-          { x: nosePoint.x, y: nosePoint.y, z: nosePoint.z },
-          pupils.left
-        );
-        let ld = (irisWidthInMM / pupilWidth) * leftPupilDistance;
-
-        // Calculate distance between nose and right pupil
-        const rightPupilDistance = getDistance(
-          { x: nosePoint.x, y: nosePoint.y, z: nosePoint.z },
-          pupils.right
-        );
-        let rd = (irisWidthInMM / pupilWidth) * rightPupilDistance;
-
-        // Optionally, you can log or display the distances
-        console.log("Distance between Nose and Left Pupil:", leftPupilDistance);
-        console.log(
-          "Distance between Nose and Right Pupil:",
-          rightPupilDistance
-        );
-
         // Setting real-time pupillary distance
         setPDValue(pd.toFixed(0));
-        setnosediatanceleft(ld.toFixed(0));
-        setnodedistanceright(rd.toFixed(0));
 
         // Drawing Face Mesh results of pupils on canvas
         canvasCtx.fillStyle = "#FFFF00";
@@ -443,20 +411,17 @@ const WebcamImg = () => {
                 height: height,
               }}
             ></canvas>
-            <button
-              id="capture-btn"
-              onClick={(ev) => {
-                capturePhoto();
-                ev.preventDefault();
-              }}
-            >
-              Click a photo
-            </button>
             <div className="values">
-              <p>{"Pupil distance: " + PDValue}</p>
-              <p>{"left: " + nosediatanceleft}</p>
-              <p>{"right: " + nodedistanceright}</p>
-
+              <p>{"PD: " + PDValue}</p>
+              <button
+                id="capture-btn"
+                onClick={(ev) => {
+                  capturePhoto();
+                  ev.preventDefault();
+                }}
+              >
+                Take picture
+              </button>
               <p>{"Average: " + averageValue}</p>
             </div>
           </div>
