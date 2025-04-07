@@ -163,7 +163,7 @@ const WebcamImg = () => {
         setnodedistanceright(rd.toFixed(0));
 
         // Drawing Face Mesh results of pupils on canvas
-        canvasCtx.fillStyle = "#4379b8";
+        canvasCtx.fillStyle = "#FFFF00";
         // Left
         canvasCtx.fillRect(
           results.multiFaceLandmarks[0][FACEMESH_LEFT_IRIS[2][0]].x * width - 2,
@@ -266,11 +266,11 @@ const WebcamImg = () => {
           //   lineWidth: 1,
           // });
           drawConnectors(canvasCtx, landmarks, FACEMESH_RIGHT_IRIS, {
-            color: "#FF3030",
+            color: "#FFA500",
             lineWidth: 1,
           });
           drawConnectors(canvasCtx, landmarks, FACEMESH_LEFT_IRIS, {
-            color: "#FF3030",
+            color: "#FFA500",
             lineWidth: 1,
           });
           // drawConnectors(canvasCtx, landmarks, FACEMESH_FACE_OVAL, {
@@ -443,19 +443,20 @@ const WebcamImg = () => {
                 height: height,
               }}
             ></canvas>
+            <button
+              id="capture-btn"
+              onClick={(ev) => {
+                capturePhoto();
+                ev.preventDefault();
+              }}
+            >
+              Click a photo
+            </button>
             <div className="values">
-              <p>{"PD: " + PDValue}</p>
+              <p>{"Pupil distance: " + PDValue}</p>
               <p>{"left: " + nosediatanceleft}</p>
               <p>{"right: " + nodedistanceright}</p>
-              <button
-                id="capture-btn"
-                onClick={(ev) => {
-                  capturePhoto();
-                  ev.preventDefault();
-                }}
-              >
-                Take picture
-              </button>
+
               <p>{"Average: " + averageValue}</p>
             </div>
           </div>
@@ -463,7 +464,7 @@ const WebcamImg = () => {
         <div className="container-img">
           <img src={imgSrc} className="result" id="photo" alt="screenshot" />
           <div className="values">
-            <p>{"PD: " + PDResult}</p>
+            <p>{"Pupil Ditance: " + PDResult}</p>
 
             <p>{"left: " + nosediatanceleftResult}</p>
             <p>{"right: " + nodedistancerightResult}</p>

@@ -14,7 +14,7 @@ body {
 main {
   background-image: linear-gradient(
     to bottom,
-    #2f5581,
+    /* #2f5581,
     #335c8b,
     #366295,
     #3a69a0,
@@ -24,7 +24,7 @@ main {
     #8097c9,
     #a5afd6,
     #c5c8e3,
-    #e3e3f1,
+    #e3e3f1, */
     #ffffff
   );
   min-height: 100vh;
@@ -35,7 +35,7 @@ main {
 }
 
 button {
-  background-color: #4379b8;
+  background-color: #000000;
   color: #fff;
   font-size: 1rem;
   width: 10rem;
@@ -46,7 +46,7 @@ button {
 }
 
 button:hover {
-  background-color: #2f5581;
+  /* background-color: #2f5581; */
 }
 
 @media only screen and (max-width: 770px) {
