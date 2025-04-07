@@ -132,17 +132,20 @@ const WebcamImg = () => {
         let irisWidthInMM = 12.0;
         let pupilWidth = Math.min(pupils.left.width, pupils.right.width);
         let pd = (irisWidthInMM / pupilWidth) * distance;
+
         // Calculate distance between nose and left pupil
         const leftPupilDistance = getDistance(
           { x: nosePoint.x, y: nosePoint.y, z: nosePoint.z },
           pupils.left
         );
+        let ld = (irisWidthInMM / pupilWidth) * leftPupilDistance;
 
         // Calculate distance between nose and right pupil
         const rightPupilDistance = getDistance(
           { x: nosePoint.x, y: nosePoint.y, z: nosePoint.z },
           pupils.right
         );
+        let rd = (irisWidthInMM / pupilWidth) * rightPupilDistance;
 
         // Optionally, you can log or display the distances
         console.log("Distance between Nose and Left Pupil:", leftPupilDistance);
@@ -153,8 +156,8 @@ const WebcamImg = () => {
 
         // Setting real-time pupillary distance
         setPDValue(pd.toFixed(0));
-        setnosediatanceleft(leftPupilDistance);
-        setnodedistanceright(rightPupilDistance);
+        setnosediatanceleft(ld.toFixed(0));
+        setnodedistanceright(rd.toFixed(0));
 
         // Drawing Face Mesh results of pupils on canvas
         canvasCtx.fillStyle = "#4379b8";
