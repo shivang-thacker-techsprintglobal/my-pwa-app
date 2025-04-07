@@ -156,7 +156,7 @@ const WebcamImg = () => {
           "Distance between Nose and Right Pupil:",
           rightPupilDistance
         );
-
+        const rectSize = 1.5;
         // Setting real-time pupillary distance
         setPDValue(pd.toFixed(0));
         setnosediatanceleft(ld.toFixed(0));
@@ -169,35 +169,35 @@ const WebcamImg = () => {
           results.multiFaceLandmarks[0][FACEMESH_LEFT_IRIS[2][0]].x * width - 2,
           results.multiFaceLandmarks[0][FACEMESH_LEFT_IRIS[2][0]].y * height -
             2,
-          4,
-          4
+          rectSize,
+          rectSize
         );
         canvasCtx.fillRect(
           results.multiFaceLandmarks[0][FACEMESH_LEFT_IRIS[0][0]].x * width - 2,
           results.multiFaceLandmarks[0][FACEMESH_LEFT_IRIS[0][0]].y * height -
             2,
-          4,
-          4
+          rectSize,
+          rectSize
         );
         canvasCtx.fillRect(
           results.multiFaceLandmarks[0][FACEMESH_LEFT_IRIS[1][0]].x * width - 2,
           results.multiFaceLandmarks[0][FACEMESH_LEFT_IRIS[1][0]].y * height -
             2,
-          4,
-          4
+          rectSize,
+          rectSize
         );
         canvasCtx.fillRect(
           results.multiFaceLandmarks[0][FACEMESH_LEFT_IRIS[3][0]].x * width - 2,
           results.multiFaceLandmarks[0][FACEMESH_LEFT_IRIS[3][0]].y * height -
             2,
-          4,
-          4
+          rectSize,
+          rectSize
         );
         canvasCtx.fillRect(
           pupils.left.x * width - 2,
           pupils.left.y * height - 2,
-          4,
-          4
+          rectSize,
+          rectSize
         );
         // Right
         canvasCtx.fillRect(
@@ -205,42 +205,42 @@ const WebcamImg = () => {
             2,
           results.multiFaceLandmarks[0][FACEMESH_RIGHT_IRIS[2][0]].y * height -
             2,
-          4,
-          4
+          rectSize,
+          rectSize
         );
         canvasCtx.fillRect(
           results.multiFaceLandmarks[0][FACEMESH_RIGHT_IRIS[0][0]].x * width -
             2,
           results.multiFaceLandmarks[0][FACEMESH_RIGHT_IRIS[0][0]].y * height -
             2,
-          4,
-          4
+          rectSize,
+          rectSize
         );
         canvasCtx.fillRect(
           results.multiFaceLandmarks[0][FACEMESH_RIGHT_IRIS[1][0]].x * width -
             2,
           results.multiFaceLandmarks[0][FACEMESH_RIGHT_IRIS[1][0]].y * height -
             2,
-          4,
-          4
+          rectSize,
+          rectSize
         );
         canvasCtx.fillRect(
           results.multiFaceLandmarks[0][FACEMESH_RIGHT_IRIS[3][0]].x * width -
             2,
           results.multiFaceLandmarks[0][FACEMESH_RIGHT_IRIS[3][0]].y * height -
             2,
-          4,
-          4
+          rectSize,
+          rectSize
         );
         canvasCtx.fillRect(
           pupils.right.x * width - 2,
           pupils.right.y * height - 2,
-          4,
-          4
+          rectSize,
+          rectSize
         );
         // Set line style
         canvasCtx.strokeStyle = "#00FF00"; // green
-        canvasCtx.lineWidth = 2;
+        canvasCtx.lineWidth = 1;
 
         // Draw line from Nose to Left Pupil
         canvasCtx.beginPath();
@@ -457,7 +457,7 @@ const WebcamImg = () => {
               <p>{"left: " + nosediatanceleft}</p>
               <p>{"right: " + nodedistanceright}</p>
 
-              <p>{"Average: " + averageValue}</p>
+              {/* <p>{"Average: " + averageValue}</p> */}
             </div>
           </div>
         </div>
@@ -477,7 +477,7 @@ const WebcamImg = () => {
             >
               Retake
             </button>
-            <p>{"Average: " + averageValue}</p>
+            {/* <p>{"Average: " + averageValue}</p> */}
           </div>
         </div>
       </div>
