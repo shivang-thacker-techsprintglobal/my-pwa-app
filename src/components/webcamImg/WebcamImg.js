@@ -23,6 +23,8 @@ const WebcamImg = () => {
   const [nosediatanceleft, setnosediatanceleft] = useState("");
   const [nodedistanceright, setnodedistanceright] = useState("");
   const [PDResult, setPDResult] = useState("");
+  const [nosediatanceleftResult, setnosediatanceleftResult] = useState("");
+  const [nodedistancerightResult, setnodedistancerightResult] = useState("");
   const [averageValue, setAverageValue] = useState(0);
   const [numbersList, setNumbersList] = useState([]);
   const NOSE_INDEX = 168;
@@ -57,9 +59,10 @@ const WebcamImg = () => {
   // Function to calculate distance between two points / pupils
   const getDistance = (p1, p2) => {
     return Math.sqrt(
-      Math.pow(p1.x - p2.x, 2) +
-        Math.pow(p1.y - p2.y, 2) +
-        Math.pow(p1.z - p2.z, 2)
+      // Math.pow(p1.x - p2.x, 2) +
+      //   Math.pow(p1.y - p2.y, 2) +
+      //   Math.pow(p1.z - p2.z, 2)
+      (p1.x - p2.x) ** 2 + (p1.y - p2.y) ** 2
     );
   };
 
@@ -235,7 +238,27 @@ const WebcamImg = () => {
           4,
           4
         );
+        // Set line style
+        canvasCtx.strokeStyle = "#00FF00"; // green
+        canvasCtx.lineWidth = 2;
 
+        // Draw line from Nose to Left Pupil
+        canvasCtx.beginPath();
+        canvasCtx.moveTo(nosePoint.x * width, nosePoint.y * height);
+        canvasCtx.lineTo(pupils.left.x * width, pupils.left.y * height);
+        canvasCtx.stroke();
+
+        // Draw line from Nose to Right Pupil
+        canvasCtx.beginPath();
+        canvasCtx.moveTo(nosePoint.x * width, nosePoint.y * height);
+        canvasCtx.lineTo(pupils.right.x * width, pupils.right.y * height);
+        canvasCtx.stroke();
+
+        // Draw line between Left and Right Pupil
+        canvasCtx.beginPath();
+        canvasCtx.moveTo(pupils.left.x * width, pupils.left.y * height);
+        canvasCtx.lineTo(pupils.right.x * width, pupils.right.y * height);
+        canvasCtx.stroke();
         // Drawing Face Mesh landmarks of iris on canvas (and face oval and tessellation if you want)
         for (const landmarks of results.multiFaceLandmarks) {
           // drawConnectors(canvasCtx, landmarks, FACEMESH_TESSELATION, {
@@ -316,6 +339,8 @@ const WebcamImg = () => {
     setImgSrc(data);
     document.querySelector(".container-display").style.display = "none";
     setPDResult(PDValue);
+    setnodedistancerightResult(nodedistanceright);
+    setnosediatanceleftResult(nosediatanceleft);
     const tempNumbers = [...numbersList];
     tempNumbers.push(+PDValue);
     console.log("All numbers: ");
@@ -337,7 +362,7 @@ const WebcamImg = () => {
   return (
     <Fragment>
       <div className="container-app">
-        <div className="container-card" id="card-1">
+        {/* <div className="container-card" id="card-1">
           <picture>
             <source
               srcSet={process.env.PUBLIC_URL + "/images/eye-scanner-64.png"}
@@ -380,8 +405,8 @@ const WebcamImg = () => {
           >
             Measure PD
           </button>
-        </div>
-        <div className="container-display" style={{ display: "none" }}>
+        </div> */}
+        <div className="container-display">
           <div className="container-video">
             <Webcam
               ref={webcamRef}
@@ -439,6 +464,9 @@ const WebcamImg = () => {
           <img src={imgSrc} className="result" id="photo" alt="screenshot" />
           <div className="values">
             <p>{"PD: " + PDResult}</p>
+
+            <p>{"left: " + nosediatanceleftResult}</p>
+            <p>{"right: " + nodedistancerightResult}</p>
             <button
               id="retake-btn"
               onClick={(ev) => {

@@ -36,13 +36,13 @@
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  background-color: #fff;
+  /* background-color: #fff; */
   border-radius: 1rem;
   padding: 1rem;
   margin: 1rem;
   width: 640px;
   height: 480px;
-  box-shadow: 0px 1px 5px rgb(47 85 129 / 70%);
+  /* box-shadow: 0px 1px 5px rgb(47 85 129 / 70%); */
 }
 
 #card-1 p {
@@ -87,7 +87,7 @@
   align-items: center;
   height: 1rem;
   width: 1rem;
-  background-color: #ff0000;
+  /* background-color: #ff0000; */
   border: 1px solid #fff;
   border-radius: 50%;
 }
